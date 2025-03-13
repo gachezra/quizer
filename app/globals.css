@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,4 +19,127 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+=======
+@import "tailwindcss";
+
+/* Global Variables */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 243, 244, 246;
+  --background-end-rgb: 249, 250, 251;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+  --primary-500: #8b5cf6;
+  --background-200: #e5e7eb;
+  --background-300: #d1d5db;
+  --background-800: #1f2937;
+  --green-500: #22c55e;
+  --red-500: #ef4444;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) 
+              rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+/* Components */
+.quiz-container {
+  max-width: 48rem; /* 3xl in Tailwind */
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+  .quiz-container {
+    padding: 1.5rem;
+  }
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 2rem;
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary-600);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-700);
+  transform: scale(1.05);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--primary-500), 0.5);
+}
+
+.btn-secondary {
+  background-color: var(--background-200);
+  color: var(--background-800);
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background-color: var(--background-300);
+  transform: scale(1.05);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--background-300), 0.5);
+}
+
+/* Choice Buttons */
+.choice-btn {
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 2px solid;
+  transition: all 0.2s ease-in-out;
+}
+
+.choice-btn-default {
+  border-color: var(--background-200);
+  background-color: white;
+}
+
+.choice-btn-default:hover {
+  background-color: var(--background-50);
+}
+
+.choice-btn-selected {
+  border-color: var(--primary-400);
+  background-color: var(--primary-50);
+}
+
+.choice-btn-correct {
+  border-color: var(--green-500);
+  background-color: #f0fdf4;
+}
+
+.choice-btn-incorrect {
+  border-color: var(--red-500);
+  background-color: #fef2f2;
+>>>>>>> bc67acd889f966ef505683c0464dcca67de31710
 }
