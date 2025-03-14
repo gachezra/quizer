@@ -1,140 +1,84 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaClock, FaQuestion, FaStar } from 'react-icons/fa';
+import { FaPlayCircle, FaClipboardCheck, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import Button from '@/components/Button';
-import { useQuiz } from '@/context/QuizContext';
-import { quizSettings } from '@/data/questions';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import Image from 'next/image';
 
-export default function HomePage() {
-  const { initQuiz, startQuiz } = useQuiz();
-  const [timeInMinutes, setTimeInMinutes] = useState(quizSettings.defaultTimeInMinutes);
-  const [questionsCount, setQuestionsCount] = useState(quizSettings.questionsCount);
-  
-  const handleStartQuiz = () => {
-    initQuiz(questionsCount, timeInMinutes);
-    startQuiz();
+export default function AlsidueLandingPage() {
+  const router = useRouter();
+  const { user } = useAuth();
+
+  const handleAuthRedirect = (path) => {
+    router.push(path);
   };
-  
+
+  const features = [
+    {
+      icon: <FaPlayCircle className="text-4xl text-primary-500" />, 
+      title: "Watch & Earn", 
+      description: "Watch short 18-second videos daily and earn money instantly, withdrawable at the click of a button."
+    },
+    {
+      icon: <FaClipboardCheck className="text-4xl text-primary-500" />, 
+      title: "Complete Surveys", 
+      description: "Answer simple surveys and get rewarded with income credited directly to your account."
+    }
+  ];
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto"
-      >
-        <div className="text-center mb-10">
-          <motion.h1 
-            className="text-4xl sm:text-5xl font-bold text-primary-600 mb-4"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Quiz Champion
-          </motion.h1>
-          <p className="text-xl text-background-700">Test your knowledge and earn stars!</p>
+      {/* Hero Section */}
+      <motion.div className="text-center py-16 max-w-4xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <Image src="/assets/logo.png" alt="Alsidue Africa Logo" width={40} height={40} />
+        <h1 className="text-5xl sm:text-6xl font-bold text-primary-600 mb-6">Alsidue Africa</h1>
+        <p className="text-xl sm:text-2xl text-background-700 mb-8">
+          Empowering Africa with stable daily income through simple digital tasks.
+        </p>
+        <div className="flex justify-center space-x-4">
+          <Button onClick={() => handleAuthRedirect('/login')} className="px-6 py-3 text-lg flex items-center">
+            <FaSignInAlt className="mr-2" /> Login
+          </Button>
+          <Button onClick={() => handleAuthRedirect('/signup')} className="px-6 py-3 text-lg flex items-center bg-secondary-500 text-white">
+            <FaUserPlus className="mr-2" /> Sign Up
+          </Button>
         </div>
-        
-        <motion.div 
-          className="card mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <h2 className="text-2xl font-bold mb-6 text-center text-background-800">Quiz Settings</h2>
-          
-          <div className="space-y-6 mb-8">
-            <div>
-              <label className="flex items-center text-lg font-medium mb-2">
-                <FaClock className="mr-2 text-primary-500" />
-                Time Limit (minutes)
-              </label>
-              <div className="flex space-x-3">
-                {[10, 15, 20].map((time) => (
-                  <button
-                    key={time}
-                    className={`py-2 px-4 rounded-md flex-1 transition-all ${
-                      timeInMinutes === time 
-                        ? 'bg-primary-100 border-2 border-primary-500 text-primary-700 font-medium' 
-                        : 'bg-background-100 border-2 border-background-200 text-background-700'
-                    }`}
-                    onClick={() => setTimeInMinutes(time)}
-                  >
-                    {time} min
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <label className="flex items-center text-lg font-medium mb-2">
-                <FaQuestion className="mr-2 text-primary-500" />
-                Number of Questions
-              </label>
-              <div className="flex space-x-3">
-                {[5, 7, 10].map((count) => (
-                  <button
-                    key={count}
-                    className={`py-2 px-4 rounded-md flex-1 transition-all ${
-                      questionsCount === count 
-                        ? 'bg-primary-100 border-2 border-primary-500 text-primary-700 font-medium' 
-                        : 'bg-background-100 border-2 border-background-200 text-background-700'
-                    }`}
-                    onClick={() => setQuestionsCount(count)}
-                  >
-                    {count} questions
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center p-4 rounded-lg bg-primary-50 border border-primary-100 mb-6">
-            <FaStar className="text-yellow-400 text-xl flex-shrink-0 mr-3" />
-            <p className="text-background-800">
-              Answer quickly and correctly to earn more stars!
-            </p>
-          </div>
-          
-          <div className="text-center">
-            <Button 
-              onClick={handleStartQuiz} 
-              className="px-10 py-3 text-lg"
-            >
-              Start Quiz
-            </Button>
-          </div>
-        </motion.div>
-        
-        <motion.div 
-          className="card"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <h2 className="text-xl font-bold mb-4 text-background-800">How to Play</h2>
-          <ul className="space-y-3 text-background-700">
-            <li className="flex items-start">
-              <span className="inline-block w-5 h-5 bg-primary-100 text-primary-700 rounded-full text-center font-bold mr-2 flex-shrink-0">1</span>
-              <span>Answer {questionsCount} multiple-choice questions within {timeInMinutes} minutes.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="inline-block w-5 h-5 bg-primary-100 text-primary-700 rounded-full text-center font-bold mr-2 flex-shrink-0">2</span>
-              <span>Each correct answer earns you points.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="inline-block w-5 h-5 bg-primary-100 text-primary-700 rounded-full text-center font-bold mr-2 flex-shrink-0">3</span>
-              <span>Finish faster for bonus points!</span>
-            </li>
-            <li className="flex items-start">
-              <span className="inline-block w-5 h-5 bg-primary-100 text-primary-700 rounded-full text-center font-bold mr-2 flex-shrink-0">4</span>
-              <span>Earn stars based on your total score.</span>
-            </li>
-          </ul>
-        </motion.div>
       </motion.div>
+
+      {/* About Section */}
+      <motion.section className="py-12 text-center max-w-3xl mx-auto" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
+        <h2 className="text-3xl font-bold text-background-800 mb-6">About Us</h2>
+        <p className="text-lg text-background-600">
+          Alsidue Africa is a digital platform founded by Dentzu & Barats Advertising Ireland, aiming to create 5 million jobs in Africa by 2028. Earn a stable income daily by completing simple tasks such as watching videos and taking surveys.
+        </p>
+      </motion.section>
+
+      {/* Features Section */}
+      <motion.section className="py-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.6 }}>
+        <h2 className="text-3xl font-bold text-center text-background-800 mb-12">How You Earn</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          {features.map((feature, index) => (
+            <motion.div key={index} className="card text-center p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 * index + 0.5 }}>
+              <div className="flex justify-center mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-bold text-background-800 mb-3">{feature.title}</h3>
+              <p className="text-background-600">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* CTA Section */}
+      <motion.section className="py-16 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }}>
+        <div className="card max-w-3xl mx-auto p-8 bg-primary-50 items-center justify-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-background-800 mb-4">Start Earning Today</h2>
+          <p className="text-lg text-background-600 mb-8">Join thousands of Africans earning a stable daily income with Alsidue Africa.</p>
+          <Button onClick={() => handleAuthRedirect('/signup')} className="px-8 py-3 text-lg flex items-center bg-secondary-500 text-white">
+            <FaUserPlus className="mr-2" /> Sign Up Now
+          </Button>
+        </div>
+      </motion.section>
     </div>
   );
 }

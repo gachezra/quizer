@@ -1,7 +1,14 @@
 'use client';
 
 import { QuizProvider } from '@/context/QuizContext';
+import { AuthProvider } from '@/context/AuthContext';
 
 export default function Providers({ children }) {
-  return <QuizProvider>{children}</QuizProvider>;
+  return (
+    <AuthProvider>
+      <QuizProvider>
+        {children}
+      </QuizProvider>
+    </AuthProvider>
+  );
 }

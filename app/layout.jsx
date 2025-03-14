@@ -1,6 +1,6 @@
 import './globals.css';
 import Providers from './Providers';
-//import BottomNavbar from '@/components/BottomNavbar';
+import BottomNavbar from '@/components/BottomNavbar';
 
 export const metadata = {
   title: 'Quiz Champion - Interactive Quiz App',
@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
             {children}
           </Providers>
         </main>
-        {/* <BottomNavbar/> */}
+        <BottomNavbar/>
       </body>
     </html>
   );
