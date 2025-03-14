@@ -12,9 +12,6 @@ import Image from 'next/image';
 export default function ProfilePage() {
   const [balance, setBalance] = useState(21412);
   const [deposit, setDeposit] = useState(400000);
-  const user = localStorage.getItem('quizUser');
-
-  console.log(user)
   
   return (
     <div className="bg-gray-50 min-h-screen pb-20 p-8">
